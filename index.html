@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The mini experience</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Audio Toggle -->
+  <button id="audio-toggle-btn" class="audio-toggle" title="Toggle Sound">
+    <span id="audio-icon">🔊</span>
+    <span id="audio-text">SOUND ON</span>
+  </button>
+
+  <!-- =========================================
+       PAGE 1: Welcome Pop-up (Matching Pic 1)
+       ========================================= -->
+  <main id="page-1" class="page active">
+    <div class="pixel-window" role="dialog" aria-label="Welcome Window">
+      <!-- Window Titlebar with 3 Pixel Hearts and X -->
+      <div class="window-titlebar">
+        <div class="hearts-group">
+          <!-- Pixel Heart 1 (Purple) -->
+          <svg class="pixel-heart-icon purple" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M2 3h4v2H2zM10 3h4v2h-4zM1 5h6v2H1zM9 5h6v2H9zM1 7h14v2H1zM2 9h12v2H2zM4 11h8v2H4zM6 13h4v2H6z" />
+          </svg>
+          <!-- Pixel Heart 2 (Purple) -->
+          <svg class="pixel-heart-icon purple" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M2 3h4v2H2zM10 3h4v2h-4zM1 5h6v2H1zM9 5h6v2H9zM1 7h14v2H1zM2 9h12v2H2zM4 11h8v2H4zM6 13h4v2H6z" />
+          </svg>
+          <!-- Pixel Heart 3 (White) -->
+          <svg class="pixel-heart-icon white" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M2 3h4v2H2zM10 3h4v2h-4zM1 5h6v2H1zM9 5h6v2H9zM1 7h14v2H1zM2 9h12v2H2zM4 11h8v2H4zM6 13h4v2H6z" />
+          </svg>
+        </div>
+        <div class="window-close-btn" id="btn-close-p1" title="Close">✕</div>
+      </div>
+
+      <!-- Window Content -->
+      <div class="window-content">
+        <h1 class="window-text">Welcome,<br>click to start</h1>
+        
+        <!-- Pic 1 Pixel Button with Heart -->
+        <button id="btn-start" class="pixel-start-btn" aria-label="Start Game">
+          <svg class="btn-heart" viewBox="0 0 16 16" fill="#c084fc">
+            <path d="M2 3h4v2H2zM10 3h4v2h-4zM1 5h6v2H1zM9 5h6v2H9zM1 7h14v2H1zM2 9h12v2H2zM4 11h8v2H4zM6 13h4v2H6z" />
+          </svg>
+        </button>
+        <p class="btn-caption">✦ click heart or press space ✦</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- =========================================
+       PAGE 2: Mini Game Question (Pic 2 Background)
+       ========================================= -->
+  <main id="page-2" class="page">
+    <div class="pixel-window page2-window" role="dialog" aria-label="Play Mini Game Window">
+      <div class="window-titlebar page2-titlebar">
+        <div class="hearts-group">
+          <svg class="pixel-heart-icon purple" viewBox="0 0 16 16" fill="#ffffff">
+            <path d="M2 3h4v2H2zM10 3h4v2h-4zM1 5h6v2H1zM9 5h6v2H9zM1 7h14v2H1zM2 9h12v2H2zM4 11h8v2H4zM6 13h4v2H6z" />
+          </svg>
+          <span>MINI GAME</span>
+        </div>
+        <div class="window-close-btn" id="btn-close-p2" style="color: #ffffff;">✕</div>
+      </div>
+
+      <div class="window-content">
+        <h2 class="window-text" style="color: #6b21a8;">Wanna play a<br>mini game?</h2>
+        
+        <div class="btn-group">
+          <button id="btn-play-yes" class="btn-retro btn-yes">YES 💜</button>
+          <button id="btn-play-no" class="btn-retro btn-no">NO ✖</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- "Boo you are so boring" Pop-up Modal -->
+    <div id="modal-boring" class="modal-overlay">
+      <div class="modal-box">
+        <div class="window-titlebar" style="background: #e9d5ff;">
+          <div class="hearts-group">
+            <span style="font-size: 13px;">👻 OOPS!</span>
+          </div>
+          <div class="window-close-btn" id="btn-close-boring">✕</div>
+        </div>
+        <div class="window-content" style="gap: 20px;">
+          <div class="modal-ghost-icon">👻</div>
+          <h2 class="window-text" style="color: #7e22ce; font-size: clamp(14px, 2.5vw, 18px);">
+            boo you are so boring
+          </h2>
+          <p style="font-size: 10px; color: #a855f7; line-height: 1.6;">
+            Aww, don't leave yet! Give the cute dino a try!
+          </p>
+          <div class="btn-group" style="flex-direction: column; width: 100%; gap: 12px;">
+            <button id="btn-fine-play" class="btn-retro btn-yes" style="width: 100%;">Okay fine, let's play! 💜</button>
+            <button id="btn-back-menu" class="btn-retro btn-no" style="width: 100%;">Back to Start 🏠</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- =========================================
+       PAGE 3: Dino Runner Game (Pic 3 Background)
+       ========================================= -->
+  <main id="page-3" class="page">
+    <!-- Pic 3 dripping slime banner across top -->
+    <div class="slime-top-bg"></div>
+
+    <div class="game-container">
+      <!-- Status Bar -->
+      <header class="game-header">
+        <div class="score-display">
+          <div class="score-badge">SCORE: <span id="current-score">00000</span></div>
+          <div class="score-badge">BEST: <span id="high-score">00000</span></div>
+        </div>
+        <button id="btn-back-to-menu-p3" class="btn-retro btn-no" style="padding: 6px 12px; font-size: 10px; min-width: auto;">
+          MENU 🏠
+        </button>
+      </header>
+
+      <!-- Canvas Area -->
+      <div class="canvas-wrapper">
+        <canvas id="game-canvas" width="840" height="400"></canvas>
+
+        <!-- Game Over Modal Overlay -->
+        <div id="game-over-modal" class="game-over-overlay">
+          <h2 class="game-over-title">✦ GAME OVER ✦</h2>
+          <div class="game-over-stats">
+            <div>YOUR SCORE: <strong id="final-score">0</strong></div>
+            <div>BEST SCORE: <strong id="final-best">0</strong></div>
+          </div>
+          <div class="btn-group" style="gap: 12px;">
+            <button id="btn-restart" class="btn-retro btn-yes">RESTART </button>
+            <button id="btn-game-menu" class="btn-retro btn-no">MENU </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls Hint -->
+      <footer class="game-controls-hint">
+        <span>🎮 CONTROLS:</span>
+        <span class="key-badge">SPACE</span> or <span class="key-badge">▲ UP</span> or <span class="key-badge">CLICK / TAP</span> to Jump!
+      </footer>
+    </div>
+
+    <!-- On-screen button for mobile/touch users -->
+    <button id="mobile-jump" class="mobile-jump-btn" aria-label="Jump">JUMP</button>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
