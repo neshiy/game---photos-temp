@@ -97,7 +97,7 @@
           </p>
           <div class="btn-group" style="flex-direction: column; width: 100%; gap: 12px;">
             <button id="btn-fine-play" class="btn-retro btn-yes" style="width: 100%;">Okay fine, let's play! 💜</button>
-            <button id="btn-back-menu" class="btn-retro btn-no" style="width: 100%;">Back to Start 🏠</button>
+            <button id="btn-back-menu" class="btn-retro btn-no" style="width: 100%;">Back to Start </button>
           </div>
         </div>
       </div>
@@ -118,9 +118,20 @@
           <div class="score-badge">SCORE: <span id="current-score">00000</span></div>
           <div class="score-badge">BEST: <span id="high-score">00000</span></div>
         </div>
-        <button id="btn-back-to-menu-p3" class="btn-retro btn-no" style="padding: 6px 12px; font-size: 10px; min-width: auto;">
-          MENU 🏠
-        </button>
+        
+        <!-- Dino 3 Lives Display -->
+        <div id="dino-lives" class="lives-container" aria-label="3 Lives">
+          <!-- Populated by JS -->
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button id="btn-skip-to-p4" class="btn-retro btn-yes" style="padding: 6px 10px; font-size: 10px; min-width: auto; background: linear-gradient(90deg, #ec4899, #a855f7);">
+            NEXT 🔮
+          </button>
+          <button id="btn-back-to-menu-p3" class="btn-retro btn-no" style="padding: 6px 10px; font-size: 10px; min-width: auto;">
+            MENU 🏠
+          </button>
+        </div>
       </header>
 
       <!-- Canvas Area -->
@@ -129,14 +140,15 @@
 
         <!-- Game Over Modal Overlay -->
         <div id="game-over-modal" class="game-over-overlay">
-          <h2 class="game-over-title">✦ GAME OVER ✦</h2>
-          <div class="game-over-stats">
-            <div>YOUR SCORE: <strong id="final-score">0</strong></div>
-            <div>BEST SCORE: <strong id="final-best">0</strong></div>
-          </div>
-          <div class="btn-group" style="gap: 12px;">
-            <button id="btn-restart" class="btn-retro btn-yes">RESTART </button>
-            <button id="btn-game-menu" class="btn-retro btn-no">MENU </button>
+          <div class="game-over-card">
+            <h2 class="game-over-title" style="font-size: 16px;">✦ OH NO! ✦</h2>
+            <div class="game-over-stats" style="font-size: 12px; max-width: 360px; line-height: 1.6; margin-bottom: 20px;">
+              "oh no u failed~ It's okay u can re try or enter the other experience"
+            </div>
+            <div class="btn-group" style="gap: 12px; flex-direction: column; width: 100%;">
+              <button id="btn-dino-retry" class="btn-retro btn-yes" style="width: 100%;">RETRY 🔄</button>
+              <button id="btn-dino-next" class="btn-retro btn-yes" style="background: linear-gradient(90deg, #ec4899, #a855f7); border-color: #831843; width: 100%;">NEXT EXPERIENCE 🔮</button>
+            </div>
           </div>
         </div>
       </div>
@@ -150,6 +162,384 @@
 
     <!-- On-screen button for mobile/touch users -->
     <button id="mobile-jump" class="mobile-jump-btn" aria-label="Jump">JUMP</button>
+  </main>
+
+  <!-- =========================================
+       PAGE 4: Boss Battle (Sukuna vs Gojo)
+       ========================================= -->
+  <main id="page-4" class="page">
+    <div class="battle-container">
+      <!-- Battle Header -->
+      <header class="battle-header">
+        <!-- Player Lives -->
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <span style="font-size: 9px; color: #7e22ce;">GOJO LIVES</span>
+          <div id="battle-player-lives" class="lives-container" aria-label="Player Lives">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Boss Health Bar -->
+        <div class="boss-hp-box">
+          <div class="boss-hp-title">
+            <span>SUKUNA HP</span>
+            <span id="boss-hp-text">100%</span>
+          </div>
+          <div class="boss-hp-bar-outer">
+            <div id="boss-hp-fill" class="boss-hp-bar-fill"></div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button id="btn-skip-to-p5" class="btn-retro btn-yes" style="padding: 6px 10px; font-size: 10px; min-width: auto; background: linear-gradient(90deg, #06b6d4, #a855f7);">
+            NEXT 🔮
+          </button>
+          <button id="btn-back-to-menu-p4" class="btn-retro btn-no" style="padding: 6px 10px; font-size: 10px; min-width: auto;">
+            MENU 🏠
+          </button>
+        </div>
+      </header>
+
+      <!-- Canvas Area -->
+      <div class="canvas-wrapper">
+        <canvas id="battle-canvas" width="840" height="440"></canvas>
+
+        <!-- Victory Modal (Cookie Pop-up) -->
+        <div id="battle-win-modal" class="game-over-overlay">
+          <div class="game-over-card">
+            <!-- Pixel Cookie SVG -->
+            <svg class="cookie-icon" viewBox="0 0 64 64" style="width: 58px; height: 58px;">
+              <circle cx="32" cy="32" r="28" fill="#d97706" stroke="#78350f" stroke-width="4" />
+              <!-- Chocolate chips -->
+              <rect x="22" y="16" width="6" height="6" fill="#451a03" />
+              <rect x="36" y="20" width="7" height="6" fill="#451a03" />
+              <rect x="18" y="32" width="6" height="7" fill="#451a03" />
+              <rect x="32" y="34" width="7" height="6" fill="#451a03" />
+              <rect x="42" y="36" width="6" height="6" fill="#451a03" />
+              <rect x="25" y="44" width="6" height="5" fill="#451a03" />
+            </svg>
+            <h2 class="game-over-title" style="color: #7e22ce; font-size: 16px; margin-bottom: 8px;">✦ VICTORY! ✦</h2>
+            <div class="game-over-stats" style="font-size: 13px; line-height: 1.5; color: #581c87; margin-bottom: 16px;">
+              "you won~ have a cookie" 🍪
+            </div>
+            <div class="btn-group" style="gap: 10px; flex-direction: column; width: 100%;">
+              <button id="btn-win-next" class="btn-retro btn-yes" style="background: linear-gradient(90deg, #ec4899, #a855f7); width: 100%; font-size: 12px; padding: 12px 16px;">JOIN NEXT EXPERIENCE 🔮</button>
+              <div style="display: flex; gap: 8px; width: 100%;">
+                <button id="btn-win-replay" class="btn-retro btn-yes" style="flex: 1; font-size: 10px; padding: 10px 8px;">PLAY AGAIN 🔄</button>
+                <button id="btn-win-menu" class="btn-retro btn-no" style="flex: 1; font-size: 10px; padding: 10px 8px;">MENU 🏠</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Defeat Modal -->
+        <div id="battle-lose-modal" class="game-over-overlay">
+          <div class="game-over-card">
+            <h2 class="game-over-title" style="color: #be185d;">✦ DEFEATED! ✦</h2>
+            <div class="game-over-stats" style="font-size: 11px; margin-bottom: 16px;">
+              The fire got you! Don't give up!
+            </div>
+            <div class="btn-group" style="gap: 10px; flex-direction: column; width: 100%;">
+              <button id="btn-battle-retry" class="btn-retro btn-yes" style="width: 100%;">RETRY 🔄</button>
+              <button id="btn-battle-menu" class="btn-retro btn-no" style="width: 100%;">MENU 🏠</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Battle Controls Hint -->
+      <footer class="game-controls-hint">
+        <span>🎮 MOVE:</span>
+        <span class="key-badge">WASD</span> or <span class="key-badge">ARROWS</span>
+        <span>| 🟣 PURPLE BOMB:</span>
+        <span class="key-badge">SPACE</span> or <span class="key-badge">CLICK</span>
+      </footer>
+    </div>
+
+    <!-- Mobile Virtual Controls -->
+    <div class="battle-mobile-controls">
+      <div class="virtual-dpad">
+        <div></div>
+        <button id="dpad-up" class="dpad-btn">▲</button>
+        <div></div>
+        <button id="dpad-left" class="dpad-btn">◀</button>
+        <div></div>
+        <button id="dpad-right" class="dpad-btn">▶</button>
+        <div></div>
+        <button id="dpad-down" class="dpad-btn">▼</button>
+        <div></div>
+      </div>
+      <button id="mobile-bomb" class="mobile-bomb-btn">
+        <span style="font-size: 16px;">🟣</span>
+        <span>BOMB</span>
+      </button>
+    </div>
+  </main>
+
+  <!-- =========================================
+       PAGE 5: Rooftop Chase (Yuji vs Mahito)
+       ========================================= -->
+  <main id="page-5" class="page">
+    <div class="battle-container">
+      <!-- Page 5 Header -->
+      <header class="battle-header" style="border-color: #06b6d4; box-shadow: 4px 4px 0px #0e7490;">
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <span style="font-size: 9px; color: #0891b2;">YUJI LIVES</span>
+          <div id="p5-player-lives" class="lives-container" aria-label="Yuji Lives">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Mahito Health Bar -->
+        <div class="boss-hp-box">
+          <div class="boss-hp-title">
+            <span style="color: #0891b2;">MAHITO HP</span>
+            <span id="p5-boss-hp-text" style="color: #0891b2;">100%</span>
+          </div>
+          <div class="boss-hp-bar-outer" style="border-color: #0e7490;">
+            <div id="p5-boss-hp-fill" class="boss-hp-bar-fill" style="background: linear-gradient(90deg, #06b6d4, #a855f7);"></div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button id="btn-skip-to-p6" class="btn-retro btn-yes" style="padding: 6px 10px; font-size: 10px; min-width: auto; background: linear-gradient(90deg, #ec4899, #a855f7);">
+            NEXT 🔮
+          </button>
+          <button id="btn-back-to-p4" class="btn-retro btn-yes" style="padding: 6px 10px; font-size: 10px; min-width: auto; background: #06b6d4; border-color: #0891b2;">
+            PREV ◀
+          </button>
+          <button id="btn-back-to-menu-p5" class="btn-retro btn-no" style="padding: 6px 10px; font-size: 10px; min-width: auto; border-color: #06b6d4; color: #0891b2;">
+            MENU 🏠
+          </button>
+        </div>
+      </header>
+
+      <!-- Canvas Area -->
+      <div class="canvas-wrapper">
+        <canvas id="p5-canvas" width="840" height="440"></canvas>
+
+        <!-- Victory Modal -->
+        <div id="p5-win-modal" class="game-over-overlay">
+          <div class="game-over-card" style="border-color: #06b6d4; box-shadow: 0 0 35px rgba(6, 182, 212, 0.6), 8px 8px 0px #0e7490;">
+            <h2 class="game-over-title" style="color: #0891b2; font-size: 16px;">✦ YOU WON! ✦</h2>
+            <div class="game-over-stats" style="font-size: 12px; line-height: 1.6; color: #164e63; margin-bottom: 20px;">
+              Mahito destroyed by your Cyan Bombs! Great job! ✨
+            </div>
+            <div class="btn-group" style="gap: 10px; flex-direction: column; width: 100%;">
+              <button id="btn-p5-win-next" class="btn-retro btn-yes" style="background: linear-gradient(90deg, #ec4899, #a855f7); width: 100%; font-size: 12px; padding: 12px 16px;">
+                JOIN NEXT EXPERIENCE 🔮
+              </button>
+              <div style="display: flex; gap: 8px; width: 100%;">
+                <button id="btn-p5-win-replay" class="btn-retro btn-yes" style="background: #06b6d4; border-color: #0e7490; flex: 1;">PLAY AGAIN 🔄</button>
+                <button id="btn-p5-win-menu" class="btn-retro btn-no" style="flex: 1;">MENU 🏠</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Defeat Modal -->
+        <div id="p5-lose-modal" class="game-over-overlay">
+          <div class="game-over-card">
+            <h2 class="game-over-title" style="color: #be185d;">✦ DEFEATED! ✦</h2>
+            <div class="game-over-stats" style="font-size: 11px; margin-bottom: 18px;">
+              Hit by Mahito's bomb line! Try again!
+            </div>
+            <div class="btn-group" style="gap: 12px; width: 100%;">
+              <button id="btn-p5-lose-retry" class="btn-retro btn-yes" style="flex: 1;">RETRY 🔄</button>
+              <button id="btn-p5-lose-menu" class="btn-retro btn-no" style="flex: 1;">MENU 🏠</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls Hint -->
+      <footer class="game-controls-hint" style="border-color: #67e8f9;">
+        <span>🎮 MOVE & JUMP:</span>
+        <span class="key-badge" style="background: #06b6d4; border-color: #0e7490;">WASD</span> or <span class="key-badge" style="background: #06b6d4; border-color: #0e7490;">ARROWS</span>
+        <span>| 💎 CYAN BOMB:</span>
+        <span class="key-badge" style="background: #06b6d4; border-color: #0e7490;">SPACE</span> or <span class="key-badge" style="background: #06b6d4; border-color: #0e7490;">CLICK</span>
+      </footer>
+    </div>
+
+    <!-- Mobile Virtual Controls -->
+    <div class="battle-mobile-controls" id="p5-mobile-controls">
+      <div class="virtual-dpad">
+        <div></div>
+        <button id="p5-dpad-up" class="dpad-btn" style="background: #06b6d4;">▲</button>
+        <div></div>
+        <button id="p5-dpad-left" class="dpad-btn" style="background: #06b6d4;">◀</button>
+        <div></div>
+        <button id="p5-dpad-right" class="dpad-btn" style="background: #06b6d4;">▶</button>
+        <div></div>
+        <button id="p5-dpad-down" class="dpad-btn" style="background: #06b6d4;">▼</button>
+        <div></div>
+      </div>
+      <button id="p5-mobile-bomb" class="mobile-bomb-btn" style="background: radial-gradient(circle, #67e8f9, #0891b2);">
+        <span style="font-size: 16px;">💎</span>
+        <span>CYAN</span>
+      </button>
+    </div>
+  </main>
+
+  <!-- =========================================
+       PAGE 6: Jujutsu Trio vs The Curse (Gengar)
+       ========================================= -->
+  <main id="page-6" class="page">
+    <div class="battle-container">
+      <!-- Page 6 Header -->
+      <header class="battle-header" style="border-color: #ec4899; box-shadow: 4px 4px 0px #be185d;">
+        <!-- Character Selector & Lives Status -->
+        <div class="p6-team-status">
+          <div class="p6-char-badge active" id="p6-badge-nobara" data-char="nobara">
+            <span class="badge-num">[1]</span>
+            <span class="badge-name">NOBARA</span>
+            <div class="badge-hearts" id="p6-hearts-nobara"></div>
+          </div>
+          <div class="p6-char-badge" id="p6-badge-yuji" data-char="yuji">
+            <span class="badge-num">[2]</span>
+            <span class="badge-name">YUJI</span>
+            <div class="badge-hearts" id="p6-hearts-yuji"></div>
+          </div>
+          <div class="p6-char-badge" id="p6-badge-megumi" data-char="megumi">
+            <span class="badge-num">[3]</span>
+            <span class="badge-name">MEGUMI</span>
+            <div class="badge-hearts" id="p6-hearts-megumi"></div>
+          </div>
+        </div>
+
+        <!-- Curse Boss HP Bar -->
+        <div class="boss-hp-box" style="min-width: 200px;">
+          <div class="boss-hp-title">
+            <span style="color: #ec4899;">CURSE HP 😈</span>
+            <span id="p6-boss-hp-text" style="color: #ec4899;">100%</span>
+          </div>
+          <div class="boss-hp-bar-outer" style="border-color: #be185d;">
+            <div id="p6-boss-hp-fill" class="boss-hp-bar-fill" style="background: linear-gradient(90deg, #ec4899, #8b5cf6, #ef4444);"></div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button id="btn-back-to-p5" class="btn-retro btn-yes" style="padding: 6px 10px; font-size: 10px; min-width: auto; background: #ec4899; border-color: #be185d;">
+            PREV ◀
+          </button>
+          <button id="btn-back-to-menu-p6" class="btn-retro btn-no" style="padding: 6px 10px; font-size: 10px; min-width: auto; border-color: #ec4899; color: #ec4899;">
+            MENU 🏠
+          </button>
+        </div>
+      </header>
+
+      <!-- Canvas Area -->
+      <div class="canvas-wrapper">
+        <canvas id="p6-canvas" width="840" height="440"></canvas>
+
+        <!-- Character Selection Modal (At Start or When Swapping) -->
+        <div id="p6-select-modal" class="game-over-overlay">
+          <div class="game-over-card" style="border-color: #ec4899; box-shadow: 0 0 35px rgba(236, 72, 153, 0.6), 8px 8px 0px #9d174d; max-width: 520px;">
+            <h2 class="game-over-title" id="p6-select-title" style="color: #be185d; font-size: 15px; margin-bottom: 6px;">
+              ✦ CHOOSE YOUR FIGHTER ✦
+            </h2>
+            <div id="p6-select-subtitle" style="font-size: 10px; color: #7e22ce; margin-bottom: 16px; line-height: 1.4;">
+              Select a Jujutsu sorcerer to exorcise the curse!
+            </div>
+
+            <!-- 3 Character Cards -->
+            <div class="p6-roster-grid">
+              <button class="p6-card-btn" id="btn-select-nobara" data-char="nobara">
+                <img src="assets/p6_nobara.png" alt="Nobara" class="roster-avatar">
+                <div class="roster-info">
+                  <span class="roster-name">NOBARA</span>
+                  <span class="roster-power">📌 Straw Doll Nails</span>
+                  <div class="roster-lives" id="roster-lives-nobara">❤️❤️❤️</div>
+                </div>
+              </button>
+
+              <button class="p6-card-btn" id="btn-select-yuji" data-char="yuji">
+                <img src="assets/p6_yuji.png" alt="Yuji" class="roster-avatar">
+                <div class="roster-info">
+                  <span class="roster-name">YUJI</span>
+                  <span class="roster-power">💥 Black Bombs</span>
+                  <div class="roster-lives" id="roster-lives-yuji">❤️❤️❤️</div>
+                </div>
+              </button>
+
+              <button class="p6-card-btn" id="btn-select-megumi" data-char="megumi">
+                <img src="assets/p6_megumi.png" alt="Megumi" class="roster-avatar">
+                <div class="roster-info">
+                  <span class="roster-name">MEGUMI</span>
+                  <span class="roster-power">🐺 Twin Divine Dogs</span>
+                  <div class="roster-lives" id="roster-lives-megumi">❤️❤️❤️</div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Victory Modal -->
+        <div id="p6-win-modal" class="game-over-overlay">
+          <div class="game-over-card" style="border-color: #ec4899; box-shadow: 0 0 35px rgba(236, 72, 153, 0.6), 8px 8px 0px #be185d;">
+            <div style="font-size: 40px; margin-bottom: 8px;">🏆</div>
+            <h2 class="game-over-title" style="color: #be185d; font-size: 16px;">✦ CURSE EXORCISED! ✦</h2>
+            <div class="game-over-stats" style="font-size: 12px; line-height: 1.6; color: #831843; margin-bottom: 18px;">
+              The trio triumphed over the Special Grade Curse with nails, black bombs, and divine dogs! You completed all experiences! 🎉
+            </div>
+            <div class="btn-group" style="gap: 10px; width: 100%;">
+              <button id="btn-p6-win-replay" class="btn-retro btn-yes" style="background: #ec4899; border-color: #be185d; flex: 1;">PLAY AGAIN 🔄</button>
+              <button id="btn-p6-win-menu" class="btn-retro btn-no" style="flex: 1;">MAIN MENU 🏠</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Squad Defeated Modal -->
+        <div id="p6-lose-modal" class="game-over-overlay">
+          <div class="game-over-card">
+            <h2 class="game-over-title" style="color: #be185d;">✦ SQUAD DEFEATED! ✦</h2>
+            <div class="game-over-stats" style="font-size: 11px; margin-bottom: 18px; line-height: 1.5;">
+              All 3 sorcerers fell to the curse's shadows, fire, and red bombs! Don't surrender!
+            </div>
+            <div class="btn-group" style="gap: 12px; width: 100%;">
+              <button id="btn-p6-lose-retry" class="btn-retro btn-yes" style="flex: 1;">REVIVE SQUAD 🔄</button>
+              <button id="btn-p6-lose-menu" class="btn-retro btn-no" style="flex: 1;">MENU 🏠</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls Hint -->
+      <footer class="game-controls-hint" style="border-color: #f472b6;">
+        <span>🎮 MOVE & JUMP:</span>
+        <span class="key-badge" style="background: #ec4899; border-color: #be185d;">WASD / ARROWS</span>
+        <span>| ⚡ ATTACK:</span>
+        <span class="key-badge" style="background: #ec4899; border-color: #be185d;">SPACE / CLICK</span>
+        <span>| 🔄 SWITCH:</span>
+        <span class="key-badge" style="background: #ec4899; border-color: #be185d;">1 / 2 / 3</span>
+      </footer>
+    </div>
+
+    <!-- Mobile Virtual Controls -->
+    <div class="battle-mobile-controls" id="p6-mobile-controls">
+      <div class="virtual-dpad">
+        <div></div>
+        <button id="p6-dpad-up" class="dpad-btn" style="background: #ec4899;">▲</button>
+        <div></div>
+        <button id="p6-dpad-left" class="dpad-btn" style="background: #ec4899;">◀</button>
+        <div></div>
+        <button id="p6-dpad-right" class="dpad-btn" style="background: #ec4899;">▶</button>
+        <div></div>
+        <button id="p6-dpad-down" class="dpad-btn" style="background: #ec4899;">▼</button>
+        <div></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; gap: 6px;">
+          <button id="p6-mobile-switch-nobara" class="btn-retro" style="font-size: 8px; padding: 6px 8px; background: #ec4899;">[1] NOBARA</button>
+          <button id="p6-mobile-switch-yuji" class="btn-retro" style="font-size: 8px; padding: 6px 8px; background: #ec4899;">[2] YUJI</button>
+          <button id="p6-mobile-switch-megumi" class="btn-retro" style="font-size: 8px; padding: 6px 8px; background: #ec4899;">[3] MEGUMI</button>
+        </div>
+        <button id="p6-mobile-attack" class="mobile-bomb-btn" style="background: radial-gradient(circle, #f472b6, #db2777); width: 100%;">
+          <span id="p6-attack-icon" style="font-size: 16px;">📌</span>
+          <span id="p6-attack-label">ATTACK</span>
+        </button>
+      </div>
+    </div>
   </main>
 
   <script src="game.js"></script>
